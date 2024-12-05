@@ -10,6 +10,7 @@ const urlsToCache = [
   "/js/edit-task.js",
   "/js/new-task.js",
   "/manifest.json",
+  "/sw.js",
   "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lumen/bootstrap.min.css",
 ];
 

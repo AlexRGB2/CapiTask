@@ -18,5 +18,10 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "id": "capi-task",
+  "dir": "auto",
+  "lang": "es",
+  "orientation": "any",
+  "categories": ["lifestyle", "productivity", "utilities"]
 }
