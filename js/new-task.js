@@ -29,8 +29,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  const taskForm = document.getElementById("taskForm");
-
   taskForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -41,17 +39,65 @@ document.addEventListener("DOMContentLoaded", async () => {
     const startDate = document.getElementById("startDate").value;
     const endDate = document.getElementById("endDate").value;
 
-    const task = {
-      name: taskName,
-      description: taskDescription,
-      image: taskImage ? await readFileAsDataURL(taskImage) : null,
-      startDate: startDate,
-      endDate: endDate,
-    };
+    await addTask(
+      taskName,
+      taskDescription,
+      startDate,
+      endDate,
+      taskImage ? await readFileAsDataURL(taskImage) : null
+    );
 
-    await addTaskToDB(task);
     alert("Tarea guardada exitosamente.");
     taskForm.reset();
     window.location.href = "../index.html";
   });
 });
+
+// Función para leer archivos como DataURL
+async function readFileAsDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (event) => resolve(event.target.result);
+    reader.onerror = (error) => reject(error);
+    reader.readAsDataURL(file);
+  });
+}
+
+// Función para añadir tareas con sincronización
+async function addTask(name, description, startDate, endDate, image) {
+  const task = {
+    name,
+    description,
+    startDate,
+    endDate,
+    image,
+    sincronizado: navigator.onLine ? "Si" : "No",
+  };
+
+  await addTaskToDB(task);
+
+  // Registrar sincronización si está offline y el navegador lo soporta
+  if (!navigator.onLine && "serviceWorker" in navigator) {
+    navigator.serviceWorker.ready.then((registration) => {
+      registration.sync.register("sync-tasks");
+    });
+  }
+}
+
+// Función auxiliar para guardar tareas en IndexedDB
+async function addTaskToDB(task) {
+  const db = await openDatabase();
+  const transaction = db.transaction("tasks", "readwrite");
+  const store = transaction.objectStore("tasks");
+  store.add(task);
+  transaction.oncomplete = () => console.log("Tarea añadida a IndexedDB");
+}
+
+// Abrir la base de datos
+async function openDatabase() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("CapiTaskDB", 1);
+    request.onsuccess = (event) => resolve(event.target.result);
+    request.onerror = (event) => reject(event.target.error);
+  });
+}

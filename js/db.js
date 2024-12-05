@@ -8,10 +8,16 @@ function initDB() {
     const request = indexedDB.open(DB_NAME, DB_VERSION);
 
     request.onupgradeneeded = (event) => {
-      db = event.target.result;
-      if (!db.objectStoreNames.contains("tasks")) {
-        db.createObjectStore("tasks", { keyPath: "id", autoIncrement: true });
-      }
+      const db = event.target.result;
+      request.onupgradeneeded = (event) => {
+        if (!db.objectStoreNames.contains("tasks")) {
+          const store = db.createObjectStore("tasks", {
+            keyPath: "id",
+            autoIncrement: true,
+          });
+          store.createIndex("sincronizado", "sincronizado", { unique: false });
+        }
+      };
     };
 
     request.onsuccess = (event) => {
@@ -26,8 +32,9 @@ function initDB() {
   });
 }
 
-// Agregar tarea
+// Agregar Tarea
 function addTaskToDB(task) {
+  task.sincronizado = navigator.onLine ? "Sí" : "No";
   return new Promise((resolve, reject) => {
     const transaction = db.transaction("tasks", "readwrite");
     const store = transaction.objectStore("tasks");
