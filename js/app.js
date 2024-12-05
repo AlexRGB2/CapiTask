@@ -1,6 +1,6 @@
 if (navigator.serviceWorker) {
   navigator.serviceWorker
-    .register("/CapiTask/sw.js")
+    .register("/sw.js")
     .then(() => console.log("Service Worker registrado correctamente."))
     .catch((err) =>
       console.error("Error al registrar el Service Worker:", err)
