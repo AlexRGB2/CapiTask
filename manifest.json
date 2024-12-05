@@ -2,7 +2,7 @@
   "name": "CapiTask",
   "short_name": "CapiTask",
   "description": "Gestor de tareas offline.",
-  "start_url": "/index.html",
+  "start_url": "https://alexrgb2.github.io/CapiTask/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#007bff",
