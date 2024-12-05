@@ -9,15 +9,14 @@ function initDB() {
 
     request.onupgradeneeded = (event) => {
       const db = event.target.result;
-      request.onupgradeneeded = (event) => {
-        if (!db.objectStoreNames.contains("tasks")) {
-          const store = db.createObjectStore("tasks", {
-            keyPath: "id",
-            autoIncrement: true,
-          });
-          store.createIndex("sincronizado", "sincronizado", { unique: false });
-        }
-      };
+
+      if (!db.objectStoreNames.contains("tasks")) {
+        const store = db.createObjectStore("tasks", {
+          keyPath: "id",
+          autoIncrement: true,
+        });
+        store.createIndex("sincronizado", "sincronizado", { unique: false });
+      }
     };
 
     request.onsuccess = (event) => {
