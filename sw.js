@@ -1,3 +1,5 @@
+importScripts("js/db.js");
+
 const CACHE_NAME = "capiTask-cache-v1";
 const urlsToCache = [
   "/",
@@ -18,6 +20,10 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
   );
+});
+
+self.addEventListener("activate", (e) => {
+  console.log("Service Worker activado");
 });
 
 self.addEventListener("fetch", (event) => {
@@ -53,7 +59,7 @@ async function syncTasks() {
 
 function openDatabase() {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open("CapiTaskDB", 1);
+    const request = indexedDB.open(DB_NAME, 1);
     request.onsuccess = (event) => resolve(event.target.result);
     request.onerror = (event) => reject(event.target.error);
   });
