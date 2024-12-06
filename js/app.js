@@ -61,17 +61,40 @@ function editTask(taskId) {
 
 // Eliminar tarea
 async function deleteTask(taskId) {
-  const confirmation = confirm(
-    "¿Estás seguro de que deseas eliminar esta tarea?"
-  );
-  if (confirmation) {
+  // Mostrar el cuadro de confirmación con SweetAlert
+  const confirmation = await Swal.fire({
+    title: "¿Estás seguro?",
+    text: "No podrás recuperar esta tarea después de eliminarla.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Sí, eliminar",
+    cancelButtonText: "Cancelar",
+  });
+
+  if (confirmation.isConfirmed) {
     try {
       await deleteTaskFromDB(taskId);
-      alert("Tarea eliminada exitosamente.");
-      location.reload();
+
+      // Mostrar alerta de éxito
+      Swal.fire({
+        icon: "success",
+        title: "¡Eliminada!",
+        text: "La tarea se eliminó exitosamente.",
+      }).then(() => {
+        // Recargar la página después de cerrar la alerta
+        location.reload();
+      });
     } catch (error) {
       console.error("Error al eliminar la tarea:", error);
-      alert("Ocurrió un error al eliminar la tarea.");
+
+      // Mostrar alerta de error
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo eliminar la tarea. Por favor, inténtalo nuevamente.",
+      });
     }
   }
 }
