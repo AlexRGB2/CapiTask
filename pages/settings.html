@@ -1,26 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Gestor de tareas offline - CapiTask" />
     <meta name="theme-color" content="#007bff" />
-    <link rel="manifest" href="manifest.json" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="css/styles.css" />
-    <title>CapiTask</title>
-
+    <link rel="manifest" href="../manifest.json" />
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <title>Configuración - CapiTask</title>
     <!-- Bootswatch Theme -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lumen/bootstrap.min.css"
       rel="stylesheet"
     />
   </head>
-
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">CapiTask</a>
+        <a class="navbar-brand" href="../index.html">CapiTask</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -34,29 +32,33 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link active" href="#">Inicio</a>
+              <a class="nav-link" href="../index.html">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/new-task.html">Nueva Tarea</a>
+              <a class="nav-link" href="new-task.html">Nueva Tarea</a>
             </li>
             <li class="nav-item">
-              <a href="pages/settings.html" class="nav-link">Configuración</a>
+              <a href="#" class="nav-link active">Configuración</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-
-    <div class="container my-5">
-      <h1 class="text-center mb-4">CapiTask - Lista de Tareas</h1>
-      <div id="taskGrid" class="row g-3">
-        <!-- Las tarjetas se generarán aquí -->
-      </div>
-    </div>
-
-    <script src="js/config.js"></script>
-    <script src="js/db.js"></script>
-    <script src="js/app.js"></script>
+    <main>
+      <form id="settingsForm">
+        <div class="form-group">
+          <label for="themeSelect">Tema</label>
+          <select class="form-select" id="themeSelect">
+            <option value="light">Claro</option>
+            <option value="dark">Oscuro</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-success">
+          Guardar configuración
+        </button>
+      </form>
+    </main>
+    <script src="/js/settings.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>

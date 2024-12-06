@@ -45,7 +45,6 @@ self.addEventListener("activate", (e) => {
 self.addEventListener("fetch", (evento) => {
   const promesaCache = caches.match(evento.request).then((cache) => {
     if (cache) {
-      console.log("Cache:", evento.request.url);
       return cache;
     }
 
