@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: error,
+        text: "Ocurrió un error al guardar la tarea.",
       });
     }
   });
