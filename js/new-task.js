@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     alert("Tarea guardada exitosamente.");
     taskForm.reset();
-    window.location.href = "../index.html";
+    window.location.href = "../CapiTask/index.html";
   });
 });
 

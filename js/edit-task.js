@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       try {
         await updateTask(updatedTask);
         alert("Tarea actualizada exitosamente.");
-        window.location.href = "../index.html";
+        window.location.href = "../CapiTask/index.html";
       } catch (error) {
         console.error("Error al actualizar la tarea:", error);
         alert("Ocurrió un error al actualizar la tarea.");
