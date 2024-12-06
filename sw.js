@@ -2,26 +2,26 @@ importScripts("js/db.js");
 
 const CACHE_NAME = "capiTask-cache-v1";
 const urlsToCache = [
-  "/",
-  "/index.html",
-  "/pages/new-task.html",
-  "/pages/edit-task.html",
-  "/js/util/util.js",
-  "/js/app.js",
-  "/js/db.js",
-  "/js/edit-task.js",
-  "/js/new-task.js",
-  "/manifest.json",
-  "/sw.js",
+  "/CapiTask/index.html",
+  "/CapiTask/pages/new-task.html",
+  "/CapiTask/pages/edit-task.html",
+  "/CapiTask/js/util/util.js",
+  "/CapiTask/js/app.js",
+  "/CapiTask/js/db.js",
+  "/CapiTask/js/edit-task.js",
+  "/CapiTask/js/new-task.js",
+  "/CapiTask/manifest.json",
+  "/CapiTask/sw.js",
   "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lumen/bootstrap.min.css",
 ];
 
 self.addEventListener("install", (event) => {
-  event
-    .waitUntil(
-      caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
-    )
-    .cath((error) => console.error("Error al precargar la cache:", error));
+  event.waitUntil(
+    caches
+      .open(CACHE_NAME)
+      .then((cache) => cache.addAll(urlsToCache))
+      .catch(console.error)
+  );
 });
 
 self.addEventListener("activate", (e) => {
