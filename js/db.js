@@ -7,21 +7,14 @@ function initDB() {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, DB_VERSION);
 
-    request.onupgradeneeded = (event) => {
-      const db = event.target.result;
-
-      if (!db.objectStoreNames.contains("tasks")) {
-        const store = db.createObjectStore("tasks", {
-          keyPath: "id",
-          autoIncrement: true,
-        });
-        store.createIndex("sincronizado", "sincronizado", { unique: false });
-      }
-    };
-
     request.onsuccess = (event) => {
       db = event.target.result;
       resolve();
+    };
+
+    request.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      db.createObjectStore("tasks", { keyPath: "id", autoIncrement: true });
     };
 
     request.onerror = (event) => {
