@@ -66,7 +66,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "No se pudo guardar la tarea. Por favor, inténtalo nuevamente.",
+        text:
+          "No se pudo guardar la tarea. Por favor, inténtalo nuevamente." +
+          error,
       });
     }
   });
