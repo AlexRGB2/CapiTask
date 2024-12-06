@@ -23,5 +23,32 @@
   "dir": "auto",
   "lang": "es",
   "orientation": "any",
-  "categories": ["lifestyle", "productivity", "utilities"]
+  "categories": ["lifestyle", "productivity", "utilities"],
+  "display_override": [
+    "browser",
+    "fullscreen",
+    "minimal-ui",
+    "standalone",
+    "window-controls-overlay"
+  ],
+  "shortcuts": [
+    {
+      "name": "Inicio",
+      "url": "https://alexrgb2.github.io/CapiTask/",
+      "description": "Pantalla de inicio"
+    },
+    {
+      "name": "Nueva tarea",
+      "url": "https://alexrgb2.github.io/CapiTask/pages/new-task.html",
+      "description": "Agregar una nueva tarea"
+    },
+    {
+      "name": "Configuración",
+      "url": "https://alexrgb2.github.io/CapiTask/pages/settings.html",
+      "description": "Configuraciones de la app"
+    }
+  ],
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
 }
