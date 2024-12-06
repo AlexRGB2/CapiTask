@@ -1,6 +1,8 @@
 importScripts("js/db.js");
 
-const CACHE_NAME = "capiTask-cache-v1";
+const CACHE_ESTATICO = "cacheEstatico-v1";
+const CACHE_DINAMICO = "cacheDinamico-v1";
+
 const urlsToCache = [
   "/CapiTask/index.html",
   "/CapiTask/favicon.ico",
@@ -20,22 +22,43 @@ const urlsToCache = [
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
-      .open(CACHE_NAME)
+      .open(CACHE_ESTATICO)
       .then((cache) => cache.addAll(urlsToCache))
       .catch(console.error)
   );
 });
 
 self.addEventListener("activate", (e) => {
-  console.log("Service Worker activado");
+  const respuesta = caches.keys().then((cache) => {
+    return Promise.all(
+      cache.map((clave) => {
+        if (clave !== CACHE_ESTATICO && clave !== CACHE_DINAMICO) {
+          return caches.delete(clave);
+        }
+      })
+    );
+  });
+
+  evento.waitUntil(respuesta);
 });
 
-self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches
-      .match(event.request)
-      .then((response) => response || fetch(event.request))
-  );
+self.addEventListener("fetch", (evento) => {
+  const promesaCache = caches.match(evento.request).then((cache) => {
+    if (cache) {
+      console.log("Cache:", evento.request.url);
+      return cache;
+    }
+
+    console.log("Red:", evento.request.url);
+    return fetch(evento.request).then((respuestaRed) => {
+      caches.open(CACHE_DINAMICO).then((cache) => {
+        cache.put(evento.request, respuestaRed.clone());
+      });
+      return respuestaRed.clone();
+    });
+  });
+
+  evento.respondWith(promesaCache);
 });
 
 // Sincronización de tareas
