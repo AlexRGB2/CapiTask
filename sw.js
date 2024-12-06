@@ -14,6 +14,7 @@ const urlsToCache = [
   "/CapiTask/manifest.json",
   "/CapiTask/sw.js",
   "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lumen/bootstrap.min.css",
+  "https://cdn.jsdelivr.net/npm/sweetalert2@11",
 ];
 
 self.addEventListener("install", (event) => {
