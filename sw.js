@@ -3,6 +3,7 @@ importScripts("js/db.js");
 const CACHE_NAME = "capiTask-cache-v1";
 const urlsToCache = [
   "/CapiTask/index.html",
+  "/CapiTask/favicon.ico",
   "/CapiTask/pages/new-task.html",
   "/CapiTask/pages/edit-task.html",
   "/CapiTask/js/util/util.js",
