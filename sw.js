@@ -10,9 +10,11 @@ const urlsToCache = [
   "/CapiTask/pages/edit-task.html",
   "/CapiTask/js/util/util.js",
   "/CapiTask/js/app.js",
+  "/CapiTask/js/config.js",
   "/CapiTask/js/db.js",
   "/CapiTask/js/edit-task.js",
   "/CapiTask/js/new-task.js",
+  "/CapiTask/js/settings.js",
   "/CapiTask/manifest.json",
   "/CapiTask/sw.js",
   "https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lumen/bootstrap.min.css",
@@ -48,7 +50,6 @@ self.addEventListener("fetch", (evento) => {
       return cache;
     }
 
-    console.log("Red:", evento.request.url);
     return fetch(evento.request).then((respuestaRed) => {
       caches.open(CACHE_DINAMICO).then((cache) => {
         cache.put(evento.request, respuestaRed.clone());
@@ -74,7 +75,6 @@ async function syncTasks() {
   // Simular sincronización con el servidor
   for (const task of tasks) {
     if (task.sincronizado === "No") {
-      console.log(`Sincronizando tarea: ${task.name}`);
       // Simular una solicitud exitosa
       await new Promise((resolve) => setTimeout(resolve, 1000));
       task.sincronizado = "Si";
