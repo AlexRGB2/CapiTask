@@ -39,17 +39,36 @@ document.addEventListener("DOMContentLoaded", async () => {
     const startDate = document.getElementById("startDate").value;
     const endDate = document.getElementById("endDate").value;
 
-    await addTask(
-      taskName,
-      taskDescription,
-      startDate,
-      endDate,
-      taskImage ? await readFileAsDataURL(taskImage) : null
-    );
+    try {
+      await addTask(
+        taskName,
+        taskDescription,
+        startDate,
+        endDate,
+        taskImage ? await readFileAsDataURL(taskImage) : null
+      );
 
-    alert("Tarea guardada exitosamente.");
-    taskForm.reset();
-    window.location.href = "../index.html";
+      taskForm.reset();
+
+      // Mostrar alerta con SweetAlert
+      Swal.fire({
+        icon: "success",
+        title: "¡Tarea guardada!",
+        text: "La tarea se ha guardado correctamente.",
+        confirmButtonText: "OK",
+      }).then(() => {
+        // Redirigir a la página principal después de cerrar la alerta
+        window.location.href = "../index.html";
+      });
+    } catch (error) {
+      // Manejar errores
+      console.error("Error al guardar la tarea:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo guardar la tarea. Por favor, inténtalo nuevamente.",
+      });
+    }
   });
 });
 

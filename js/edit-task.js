@@ -71,14 +71,33 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       try {
         await updateTask(updatedTask);
-        alert("Tarea actualizada exitosamente.");
-        window.location.href = "../index.html";
+
+        // Mostrar alerta con SweetAlert
+        Swal.fire({
+          icon: "success",
+          title: "¡Tarea actualizada!",
+          text: "La tarea se ha actualizado correctamente.",
+          confirmButtonText: "OK",
+        }).then(() => {
+          // Redirigir a la página principal después de cerrar la alerta
+          window.location.href = "../index.html";
+        });
       } catch (error) {
+        // Manejo de errores
         console.error("Error al actualizar la tarea:", error);
-        alert("Ocurrió un error al actualizar la tarea.");
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "No se pudo actualizar la tarea. Por favor, inténtalo nuevamente.",
+        });
       }
     });
   } catch (error) {
     console.error("Error al cargar la tarea:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Error al cargar la tarea",
+    });
   }
 });
