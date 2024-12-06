@@ -17,9 +17,11 @@ const urlsToCache = [
 ];
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
-  );
+  event
+    .waitUntil(
+      caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
+    )
+    .cath((error) => console.error("Error al precargar la cache:", error));
 });
 
 self.addEventListener("activate", (e) => {
